@@ -1,335 +1,375 @@
 {
-	"version": 1,
-	"enums": {
-		"Side": [
-			{
-				"name": "Buy",
-				"value": 0
-			},
-			{
-				"name": "Sell",
-				"value": 1
-			}
-		],
-		"OrderType": [
-			{
-				"name": "Limit",
-				"value": 0
-			},
-			{
-				"name": "Market",
-				"value": 1
-			}
-		],
-		"TIF": [
-			{
-				"name": "GFD",
-				"value": 0
-			},
-			{
-				"name": "IOC",
-				"value": 1
-			},
-			{
-				"name": "FOK",
-				"value": 2
-			}
-		],
-		"StpMode": [
-			{
-				"name": "None",
-				"value": 0
-			},
-			{
-				"name": "CancelResting",
-				"value": 1
-			},
-			{
-				"name": "CancelTaker",
-				"value": 2
-			},
-			{
-				"name": "DecrementBoth",
-				"value": 3
-			}
-		],
-		"RejectCode": [
-			{
-				"name": "None",
-				"value": 0
-			},
-			{
-				"name": "SessionClosed",
-				"value": 1
-			},
-			{
-				"name": "BadSymbol",
-				"value": 2
-			},
-			{
-				"name": "BadPrice",
-				"value": 3
-			},
-			{
-				"name": "BadQty",
-				"value": 4
-			},
-			{
-				"name": "PositionLimit",
-				"value": 5
-			},
-			{
-				"name": "NotionalLimit",
-				"value": 6
-			},
-			{
-				"name": "RateLimited",
-				"value": 7
-			},
-			{
-				"name": "DuplicateClOrdId",
-				"value": 8
-			},
-			{
-				"name": "UnknownOrder",
-				"value": 9
-			},
-			{
-				"name": "ReplaceConstraints",
-				"value": 10
-			},
-			{
-				"name": "CancelConstraints",
-				"value": 11
-			},
-			{
-				"name": "RiskUnavailable",
-				"value": 12
-			},
-			{
-				"name": "Unauthorized",
-				"value": 13
-			}
-		],
-		"ExecType": [
-			{
-				"name": "Ack",
-				"value": 0
-			},
-			{
-				"name": "PartialFill",
-				"value": 1
-			},
-			{
-				"name": "Fill",
-				"value": 2
-			},
-			{
-				"name": "CancelAck",
-				"value": 3
-			},
-			{
-				"name": "ReplaceAck",
-				"value": 4
-			},
-			{
-				"name": "Reject",
-				"value": 5
-			}
-		],
-		"EventType": [
-			{
-				"name": "Heartbeat",
-				"value": 0
-			},
-			{
-				"name": "Session",
-				"value": 1
-			},
-			{
-				"name": "Config",
-				"value": 2
-			}
-		],
-		"InstrType": [
-			{
-				"name": "Equity",
-				"value": 0
-			},
-			{
-				"name": "ETF",
-				"value": 1
-			},
-			{
-				"name": "Option",
-				"value": 2
-			}
-		],
-		"DeltaKind": [
-			{
-				"name": "PriceLevel",
-				"value": 0
-			},
-			{
-				"name": "Snapshot",
-				"value": 1
-			}
-		]
-	},
-	"tables": {
-		"PriceLevelDelta": ["side", "pxTicks", "deltaLots"],
-		"BookDelta": [
-			"instrumentId",
-			"feedSeq",
-			"kind",
-			"levels",
-			"tsNanos",
-			"bestBidTicks",
-			"bestAskTicks"
-		],
-		"Trade": [
-			"instrumentId",
-			"tradeId",
-			"pxTicks",
-			"lots",
-			"aggressor",
-			"tsNanos",
-			"matchId"
-		],
-		"PositionUpdate": [
-			"teamId",
-			"instrumentId",
-			"posLots",
-			"openBuyLots",
-			"openSellLots",
-			"realizedPnlTicks",
-			"unrealizedPnlTicks",
-			"headroomLongLots",
-			"headroomShortLots",
-			"tsNanos"
-		],
-		"RiskLimit": [
-			"teamId",
-			"instrumentId",
-			"posMinLots",
-			"posMaxLots",
-			"notionalMaxTicks",
-			"maxOrdersPerSec"
-		],
-		"SessionEvent": ["sessionId", "roundNo", "dayNo", "state", "tsNanos"],
-		"Instrument": [
-			"id",
-			"symbol",
-			"type",
-			"currency",
-			"tickSizeNanos",
-			"tickSizeTicks",
-			"lotSizeLots",
-			"meta"
-		],
-		"EtfComponent": [
-			"etfInstrumentId",
-			"componentInstrumentId",
-			"weightNum",
-			"weightDen"
-		],
-		"OptionMeta": [
-			"instrumentId",
-			"underlyingInstrumentId",
-			"strikeTicks",
-			"right",
-			"expiryEpochDays",
-			"multiplier"
-		],
-		"ConfigSnapshot": [
-			"version",
-			"instruments",
-			"etf",
-			"options",
-			"riskLimits",
-			"tsNanos"
-		],
-		"OrderNew": [
-			"clOrdId",
-			"instrumentId",
-			"side",
-			"type",
-			"tif",
-			"pxTicks",
-			"lots",
-			"minFillLots",
-			"postOnly",
-			"stp",
-			"userId",
-			"teamId"
-		],
-		"OrderReplace": [
-			"origClOrdId",
-			"newClOrdId",
-			"instrumentId",
-			"pxTicks",
-			"lots",
-			"minFillLots",
-			"postOnly",
-			"userId",
-			"teamId"
-		],
-		"OrderCancel": ["clOrdId", "instrumentId", "userId", "teamId"],
-		"CancelAll": ["scope", "userId", "teamId"],
-		"Ack": [
-			"execType",
-			"clOrdId",
-			"orderId",
-			"instrumentId",
-			"filledLots",
-			"leavesLots",
-			"avgPxTicks",
-			"rejectCode",
-			"text",
-			"tsNanos"
-		],
-		"ETFCreateRedeem": [
-			"requestId",
-			"etfInstrumentId",
-			"lots",
-			"userId",
-			"teamId"
-		],
-		"EtfLeg": ["instrumentId", "lots"],
-		"ETFCreateRedeemResult": [
-			"requestId",
-			"etfInstrumentId",
-			"lots",
-			"legs",
-			"success",
-			"rejectCode",
-			"text",
-			"tsNanos"
-		],
-		"Subscribe": ["instruments", "bookDepth", "trades", "positions", "teamId"],
-		"Unsubscribe": ["instruments", "teamId"],
-		"Heartbeat": ["nonce"],
-		"Auth": ["jwt", "clientName", "protocol"],
-		"Message": ["schemaVersion", "payload"]
-	},
-	"unions": {
-		"Payload": [
-			"Auth",
-			"Subscribe",
-			"Unsubscribe",
-			"Heartbeat",
-			"OrderNew",
-			"OrderReplace",
-			"OrderCancel",
-			"CancelAll",
-			"ETFCreateRedeem",
-			"Ack",
-			"Trade",
-			"BookDelta",
-			"PositionUpdate",
-			"ConfigSnapshot",
-			"SessionEvent",
-			"ETFCreateRedeemResult"
-		]
-	}
+  "version": 1,
+  "enums": {
+    "Side": [
+      {
+        "name": "Buy",
+        "value": 0
+      },
+      {
+        "name": "Sell",
+        "value": 1
+      }
+    ],
+    "OrderType": [
+      {
+        "name": "Limit",
+        "value": 0
+      },
+      {
+        "name": "Market",
+        "value": 1
+      }
+    ],
+    "TIF": [
+      {
+        "name": "GFD",
+        "value": 0
+      },
+      {
+        "name": "IOC",
+        "value": 1
+      },
+      {
+        "name": "FOK",
+        "value": 2
+      }
+    ],
+    "StpMode": [
+      {
+        "name": "None",
+        "value": 0
+      },
+      {
+        "name": "CancelResting",
+        "value": 1
+      },
+      {
+        "name": "CancelTaker",
+        "value": 2
+      },
+      {
+        "name": "DecrementBoth",
+        "value": 3
+      }
+    ],
+    "RejectCode": [
+      {
+        "name": "None",
+        "value": 0
+      },
+      {
+        "name": "SessionClosed",
+        "value": 1
+      },
+      {
+        "name": "BadSymbol",
+        "value": 2
+      },
+      {
+        "name": "BadPrice",
+        "value": 3
+      },
+      {
+        "name": "BadQty",
+        "value": 4
+      },
+      {
+        "name": "PositionLimit",
+        "value": 5
+      },
+      {
+        "name": "NotionalLimit",
+        "value": 6
+      },
+      {
+        "name": "RateLimited",
+        "value": 7
+      },
+      {
+        "name": "DuplicateClOrdId",
+        "value": 8
+      },
+      {
+        "name": "UnknownOrder",
+        "value": 9
+      },
+      {
+        "name": "ReplaceConstraints",
+        "value": 10
+      },
+      {
+        "name": "CancelConstraints",
+        "value": 11
+      },
+      {
+        "name": "RiskUnavailable",
+        "value": 12
+      },
+      {
+        "name": "Unauthorized",
+        "value": 13
+      }
+    ],
+    "ExecType": [
+      {
+        "name": "Ack",
+        "value": 0
+      },
+      {
+        "name": "PartialFill",
+        "value": 1
+      },
+      {
+        "name": "Fill",
+        "value": 2
+      },
+      {
+        "name": "CancelAck",
+        "value": 3
+      },
+      {
+        "name": "ReplaceAck",
+        "value": 4
+      },
+      {
+        "name": "Reject",
+        "value": 5
+      }
+    ],
+    "EventType": [
+      {
+        "name": "Heartbeat",
+        "value": 0
+      },
+      {
+        "name": "Session",
+        "value": 1
+      },
+      {
+        "name": "Config",
+        "value": 2
+      }
+    ],
+    "InstrType": [
+      {
+        "name": "Equity",
+        "value": 0
+      },
+      {
+        "name": "ETF",
+        "value": 1
+      },
+      {
+        "name": "Option",
+        "value": 2
+      }
+    ],
+    "DeltaKind": [
+      {
+        "name": "PriceLevel",
+        "value": 0
+      },
+      {
+        "name": "Snapshot",
+        "value": 1
+      }
+    ]
+  },
+  "tables": {
+    "PriceLevelDelta": [
+      "side",
+      "pxTicks",
+      "deltaLots"
+    ],
+    "BookDelta": [
+      "instrumentId",
+      "feedSeq",
+      "kind",
+      "levels",
+      "tsNanos",
+      "bestBidTicks",
+      "bestAskTicks"
+    ],
+    "Trade": [
+      "instrumentId",
+      "tradeId",
+      "pxTicks",
+      "lots",
+      "aggressor",
+      "tsNanos",
+      "matchId"
+    ],
+    "PositionUpdate": [
+      "teamId",
+      "instrumentId",
+      "posLots",
+      "openBuyLots",
+      "openSellLots",
+      "realizedPnlTicks",
+      "unrealizedPnlTicks",
+      "headroomLongLots",
+      "headroomShortLots",
+      "tsNanos"
+    ],
+    "RiskLimit": [
+      "teamId",
+      "instrumentId",
+      "posMinLots",
+      "posMaxLots",
+      "notionalMaxTicks",
+      "maxOrdersPerSec"
+    ],
+    "SessionEvent": [
+      "sessionId",
+      "roundNo",
+      "dayNo",
+      "state",
+      "tsNanos"
+    ],
+    "Instrument": [
+      "id",
+      "symbol",
+      "type",
+      "currency",
+      "tickSizeNanos",
+      "tickSizeTicks",
+      "lotSizeLots",
+      "meta"
+    ],
+    "EtfComponent": [
+      "etfInstrumentId",
+      "componentInstrumentId",
+      "weightNum",
+      "weightDen"
+    ],
+    "OptionMeta": [
+      "instrumentId",
+      "underlyingInstrumentId",
+      "strikeTicks",
+      "right",
+      "expiryEpochDays",
+      "multiplier"
+    ],
+    "ConfigSnapshot": [
+      "version",
+      "instruments",
+      "etf",
+      "options",
+      "riskLimits",
+      "tsNanos"
+    ],
+    "OrderNew": [
+      "clOrdId",
+      "instrumentId",
+      "side",
+      "type",
+      "tif",
+      "pxTicks",
+      "lots",
+      "minFillLots",
+      "postOnly",
+      "stp",
+      "userId",
+      "teamId"
+    ],
+    "OrderReplace": [
+      "origClOrdId",
+      "newClOrdId",
+      "instrumentId",
+      "pxTicks",
+      "lots",
+      "minFillLots",
+      "postOnly",
+      "userId",
+      "teamId"
+    ],
+    "OrderCancel": [
+      "clOrdId",
+      "instrumentId",
+      "userId",
+      "teamId"
+    ],
+    "CancelAll": [
+      "scope",
+      "userId",
+      "teamId"
+    ],
+    "Ack": [
+      "execType",
+      "clOrdId",
+      "orderId",
+      "instrumentId",
+      "filledLots",
+      "leavesLots",
+      "avgPxTicks",
+      "rejectCode",
+      "text",
+      "tsNanos"
+    ],
+    "ETFCreateRedeem": [
+      "requestId",
+      "etfInstrumentId",
+      "lots",
+      "userId",
+      "teamId"
+    ],
+    "EtfLeg": [
+      "instrumentId",
+      "lots"
+    ],
+    "ETFCreateRedeemResult": [
+      "requestId",
+      "etfInstrumentId",
+      "lots",
+      "legs",
+      "success",
+      "rejectCode",
+      "text",
+      "tsNanos"
+    ],
+    "Subscribe": [
+      "instruments",
+      "bookDepth",
+      "trades",
+      "positions",
+      "teamId"
+    ],
+    "Unsubscribe": [
+      "instruments",
+      "teamId"
+    ],
+    "Heartbeat": [
+      "nonce"
+    ],
+    "Auth": [
+      "jwt",
+      "clientName",
+      "protocol"
+    ],
+    "Message": [
+      "schemaVersion",
+      "payload"
+    ]
+  },
+  "unions": {
+    "Payload": [
+      "Auth",
+      "Subscribe",
+      "Unsubscribe",
+      "Heartbeat",
+      "OrderNew",
+      "OrderReplace",
+      "OrderCancel",
+      "CancelAll",
+      "ETFCreateRedeem",
+      "Ack",
+      "Trade",
+      "BookDelta",
+      "PositionUpdate",
+      "ConfigSnapshot",
+      "SessionEvent",
+      "ETFCreateRedeemResult"
+    ]
+  }
 }
