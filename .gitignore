@@ -6,10 +6,12 @@ node_modules/
 /dist/
 /build/
 packages/sdk-ts/dist/
-packages/sdk-ts/src/gen/
-packages/sdk-py/ctc_protocol/gen/
-packages/sdk-java/src/main/java/
-packages/sdk-cpp/include/
+# Keep generated protocol bindings under version control for CI guard
+# (do not ignore the following):
+#!packages/sdk-ts/src/gen/
+#!packages/sdk-py/ctc_protocol/gen/
+#!packages/sdk-java/src/main/java/
+#!packages/sdk-cpp/include/
 
 # Editor/OS
 .DS_Store
@@ -32,4 +34,3 @@ bin/
 # Lockfiles (keep pnpm lockfile tracked)
 # package-lock.json
 yarn.lock
-

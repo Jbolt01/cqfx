@@ -1,0 +1,7 @@
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+apps/engine/* @core-exchange
+packages/protocol/* @protocol-owners
+apps/ui/* @ui-owners
+deploy/* @devops
+
