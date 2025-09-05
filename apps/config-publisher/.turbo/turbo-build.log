@@ -1,4 +1,0 @@
-
-> @ctc/config-publisher@0.0.0 build /Users/vijayrs/src/cqf/cqfx/apps/config-publisher
-> tsc -p tsconfig.json
-
