@@ -1,0 +1,19 @@
+{
+  "name": "@ctc/engine",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@ctc/sdk-ts": "workspace:*",
+    "flatbuffers": "^25.2.10"
+  },
+  "devDependencies": {
+    "@types/node": "^22.8.6"
+  }
+}
+
