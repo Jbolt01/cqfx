@@ -9,6 +9,7 @@
 		"build": "turbo run build",
 		"lint": "biome check packages/tooling packages/protocol/fbs packages/sdk-ts/src/index.ts .github package.json turbo.json tsconfig.base.json .biome.json",
 		"typecheck": "tsc -p packages/sdk-ts/tsconfig.json --noEmit",
+		"test": "vitest run --reporter=dot",
 		"format": "biome format --write packages/tooling packages/protocol/fbs packages/sdk-ts/src/index.ts .github package.json turbo.json tsconfig.base.json .biome.json",
 		"gen:protocol": "tsx packages/tooling/scripts/gen-protocol.ts",
 		"protocol:check": "tsx packages/tooling/scripts/gen-protocol.ts --check"
@@ -21,7 +22,8 @@
 		"flatc": "^1.1.0",
 		"tsx": "^4.19.2",
 		"turbo": "^2.2.3",
-		"typescript": "^5.6.3"
+		"typescript": "^5.6.3",
+		"vitest": "^2.1.3"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": []
