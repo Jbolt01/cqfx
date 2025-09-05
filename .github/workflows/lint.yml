@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 concurrency:
   group: lint-${{ github.ref }}
@@ -30,4 +31,3 @@ jobs:
         run: pnpm typecheck
       - name: Build (smoke)
         run: pnpm build
-
