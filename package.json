@@ -7,9 +7,9 @@
 	},
 	"scripts": {
 		"build": "turbo run build --filter=...",
-    "lint": "biome check packages/tooling packages/protocol/fbs packages/sdk-ts/src/index.ts .github package.json turbo.json tsconfig.base.json .biome.json",
+		"lint": "biome check packages/tooling packages/protocol/fbs packages/sdk-ts/src/index.ts .github package.json turbo.json tsconfig.base.json .biome.json",
 		"typecheck": "tsc -p packages/sdk-ts/tsconfig.json --noEmit",
-    "format": "biome format --write packages/tooling packages/protocol/fbs packages/sdk-ts/src/index.ts .github package.json turbo.json tsconfig.base.json .biome.json",
+		"format": "biome format --write packages/tooling packages/protocol/fbs packages/sdk-ts/src/index.ts .github package.json turbo.json tsconfig.base.json .biome.json",
 		"gen:protocol": "tsx packages/tooling/scripts/gen-protocol.ts",
 		"protocol:check": "tsx packages/tooling/scripts/gen-protocol.ts --check"
 	},
