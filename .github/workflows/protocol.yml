@@ -32,7 +32,7 @@ jobs:
           curl -L -o flatc.zip https://github.com/google/flatbuffers/releases/download/v25.2.10/Linux.flatc.binary.g%2B%2B-13.zip
           unzip -q flatc.zip -d /tmp/flatc
           echo "/tmp/flatc" >> "$GITHUB_PATH"
-          flatc --version
+          /tmp/flatc/flatc --version
       - name: Schema compat check
         run: pnpm protocol:check
       - name: Generate protocol bindings
