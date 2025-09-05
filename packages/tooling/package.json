@@ -1,0 +1,11 @@
+{
+  "name": "@ctc/tooling",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": ["scripts"],
+  "scripts": {
+    "gen:protocol": "pnpm -w gen:protocol"
+  }
+}
+
