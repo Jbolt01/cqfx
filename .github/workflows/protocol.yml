@@ -1,0 +1,37 @@
+name: protocol
+
+on:
+  pull_request:
+    paths:
+      - 'packages/protocol/fbs/**'
+      - 'packages/tooling/scripts/**'
+      - '.github/workflows/protocol.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'packages/protocol/fbs/**'
+      - 'packages/tooling/scripts/**'
+      - '.github/workflows/protocol.yml'
+
+jobs:
+  codegen-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - name: Install deps
+        run: pnpm install
+      - name: Install flatc
+        run: sudo apt-get update && sudo apt-get install -y flatbuffers-compiler
+      - name: Schema compat check
+        run: pnpm protocol:check
+      - name: Generate protocol bindings
+        run: pnpm gen:protocol
+      - name: Ensure generated files committed
+        run: git diff --exit-code || (echo "Generated files changed. Commit codegen outputs." && git status --porcelain && exit 1)
