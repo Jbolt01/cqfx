@@ -24,6 +24,12 @@ importers:
         specifier: ^5.6.3
         version: 5.9.2
 
+  packages/protocol: {}
+
+  packages/sdk-ts: {}
+
+  packages/tooling: {}
+
 packages:
 
   '@biomejs/biome@1.9.4':
