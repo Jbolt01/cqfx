@@ -6,7 +6,7 @@
 		"node": ">=22.0.0"
 	},
 	"scripts": {
-    "build": "turbo run build",
+		"build": "turbo run build",
 		"lint": "biome check packages/tooling packages/protocol/fbs packages/sdk-ts/src/index.ts .github package.json turbo.json tsconfig.base.json .biome.json",
 		"typecheck": "tsc -p packages/sdk-ts/tsconfig.json --noEmit",
 		"format": "biome format --write packages/tooling packages/protocol/fbs packages/sdk-ts/src/index.ts .github package.json turbo.json tsconfig.base.json .biome.json",
