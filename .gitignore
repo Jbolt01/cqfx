@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+/dist/
+/build/
+packages/sdk-ts/dist/
+packages/sdk-ts/src/gen/
+packages/sdk-py/ctc_protocol/gen/
+packages/sdk-java/src/main/java/
+packages/sdk-cpp/include/
+
+# Editor/OS
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Env
+.env
+.env.*
+
+# Binaries downloaded by flatc helper
+bin/
+
+# Lockfiles (keep pnpm lockfile tracked)
+# package-lock.json
+yarn.lock
+
