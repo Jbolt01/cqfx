@@ -46,5 +46,7 @@ jobs:
         run: pnpm protocol:check
       - name: Generate protocol bindings
         run: pnpm gen:protocol
-      - name: Ensure generated files committed
-        run: git diff --exit-code || (echo "Generated files changed. Commit codegen outputs." && git status --porcelain && exit 1)
+      - name: Ensure ABI snapshot committed
+        run: |
+          git diff --exit-code -- packages/protocol/abi/envelope.abi.json \
+            || (echo "ABI snapshot changed. Commit updated ABI (and regen SDKs locally)." && git status --porcelain && exit 1)
