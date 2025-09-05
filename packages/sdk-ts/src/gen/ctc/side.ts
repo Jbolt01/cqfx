@@ -3,6 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
 export enum Side {
-  Buy = 0,
-  Sell = 1
+	Buy = 0,
+	Sell = 1,
 }

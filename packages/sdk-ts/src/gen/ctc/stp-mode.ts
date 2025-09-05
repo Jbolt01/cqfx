@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
 export enum StpMode {
-  None = 0,
-  CancelResting = 1,
-  CancelTaker = 2,
-  DecrementBoth = 3
+	None = 0,
+	CancelResting = 1,
+	CancelTaker = 2,
+	DecrementBoth = 3,
 }

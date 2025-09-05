@@ -2,178 +2,221 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-import * as flatbuffers from 'flatbuffers';
+import * as flatbuffers from "flatbuffers";
 
-import { DeltaKind } from '../ctc/delta-kind.js';
-import { PriceLevelDelta, PriceLevelDeltaT } from '../ctc/price-level-delta.js';
-
+import { DeltaKind } from "../ctc/delta-kind.js";
+import { PriceLevelDelta, PriceLevelDeltaT } from "../ctc/price-level-delta.js";
 
 export class BookDelta implements flatbuffers.IUnpackableObject<BookDeltaT> {
-  bb: flatbuffers.ByteBuffer|null = null;
-  bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):BookDelta {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+	bb: flatbuffers.ByteBuffer | null = null;
+	bb_pos = 0;
+	__init(i: number, bb: flatbuffers.ByteBuffer): BookDelta {
+		this.bb_pos = i;
+		this.bb = bb;
+		return this;
+	}
 
-static getRootAsBookDelta(bb:flatbuffers.ByteBuffer, obj?:BookDelta):BookDelta {
-  return (obj || new BookDelta()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
-}
+	static getRootAsBookDelta(
+		bb: flatbuffers.ByteBuffer,
+		obj?: BookDelta,
+	): BookDelta {
+		return (obj || new BookDelta()).__init(
+			bb.readInt32(bb.position()) + bb.position(),
+			bb,
+		);
+	}
 
-static getSizePrefixedRootAsBookDelta(bb:flatbuffers.ByteBuffer, obj?:BookDelta):BookDelta {
-  bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
-  return (obj || new BookDelta()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
-}
+	static getSizePrefixedRootAsBookDelta(
+		bb: flatbuffers.ByteBuffer,
+		obj?: BookDelta,
+	): BookDelta {
+		bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
+		return (obj || new BookDelta()).__init(
+			bb.readInt32(bb.position()) + bb.position(),
+			bb,
+		);
+	}
 
-instrumentId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	instrumentId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 4);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-feedSeq():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 6);
-  return offset ? this.bb!.readUint64(this.bb_pos + offset) : BigInt('0');
-}
+	feedSeq(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 6);
+		return offset ? this.bb!.readUint64(this.bb_pos + offset) : BigInt("0");
+	}
 
-kind():DeltaKind {
-  const offset = this.bb!.__offset(this.bb_pos, 8);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : DeltaKind.PriceLevel;
-}
+	kind(): DeltaKind {
+		const offset = this.bb!.__offset(this.bb_pos, 8);
+		return offset
+			? this.bb!.readUint8(this.bb_pos + offset)
+			: DeltaKind.PriceLevel;
+	}
 
-levels(index: number, obj?:PriceLevelDelta):PriceLevelDelta|null {
-  const offset = this.bb!.__offset(this.bb_pos, 10);
-  return offset ? (obj || new PriceLevelDelta()).__init(this.bb!.__indirect(this.bb!.__vector(this.bb_pos + offset) + index * 4), this.bb!) : null;
-}
+	levels(index: number, obj?: PriceLevelDelta): PriceLevelDelta | null {
+		const offset = this.bb!.__offset(this.bb_pos, 10);
+		return offset
+			? (obj || new PriceLevelDelta()).__init(
+					this.bb!.__indirect(
+						this.bb!.__vector(this.bb_pos + offset) + index * 4,
+					),
+					this.bb!,
+				)
+			: null;
+	}
 
-levelsLength():number {
-  const offset = this.bb!.__offset(this.bb_pos, 10);
-  return offset ? this.bb!.__vector_len(this.bb_pos + offset) : 0;
-}
+	levelsLength(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 10);
+		return offset ? this.bb!.__vector_len(this.bb_pos + offset) : 0;
+	}
 
-tsNanos():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 12);
-  return offset ? this.bb!.readUint64(this.bb_pos + offset) : BigInt('0');
-}
+	tsNanos(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 12);
+		return offset ? this.bb!.readUint64(this.bb_pos + offset) : BigInt("0");
+	}
 
-bestBidTicks():number {
-  const offset = this.bb!.__offset(this.bb_pos, 14);
-  return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
-}
+	bestBidTicks(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 14);
+		return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
+	}
 
-bestAskTicks():number {
-  const offset = this.bb!.__offset(this.bb_pos, 16);
-  return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
-}
+	bestAskTicks(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 16);
+		return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
+	}
 
-static startBookDelta(builder:flatbuffers.Builder) {
-  builder.startObject(7);
-}
+	static startBookDelta(builder: flatbuffers.Builder) {
+		builder.startObject(7);
+	}
 
-static addInstrumentId(builder:flatbuffers.Builder, instrumentId:number) {
-  builder.addFieldInt32(0, instrumentId, 0);
-}
+	static addInstrumentId(builder: flatbuffers.Builder, instrumentId: number) {
+		builder.addFieldInt32(0, instrumentId, 0);
+	}
 
-static addFeedSeq(builder:flatbuffers.Builder, feedSeq:bigint) {
-  builder.addFieldInt64(1, feedSeq, BigInt('0'));
-}
+	static addFeedSeq(builder: flatbuffers.Builder, feedSeq: bigint) {
+		builder.addFieldInt64(1, feedSeq, BigInt("0"));
+	}
 
-static addKind(builder:flatbuffers.Builder, kind:DeltaKind) {
-  builder.addFieldInt8(2, kind, DeltaKind.PriceLevel);
-}
+	static addKind(builder: flatbuffers.Builder, kind: DeltaKind) {
+		builder.addFieldInt8(2, kind, DeltaKind.PriceLevel);
+	}
 
-static addLevels(builder:flatbuffers.Builder, levelsOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(3, levelsOffset, 0);
-}
+	static addLevels(
+		builder: flatbuffers.Builder,
+		levelsOffset: flatbuffers.Offset,
+	) {
+		builder.addFieldOffset(3, levelsOffset, 0);
+	}
 
-static createLevelsVector(builder:flatbuffers.Builder, data:flatbuffers.Offset[]):flatbuffers.Offset {
-  builder.startVector(4, data.length, 4);
-  for (let i = data.length - 1; i >= 0; i--) {
-    builder.addOffset(data[i]!);
-  }
-  return builder.endVector();
-}
+	static createLevelsVector(
+		builder: flatbuffers.Builder,
+		data: flatbuffers.Offset[],
+	): flatbuffers.Offset {
+		builder.startVector(4, data.length, 4);
+		for (let i = data.length - 1; i >= 0; i--) {
+			builder.addOffset(data[i]!);
+		}
+		return builder.endVector();
+	}
 
-static startLevelsVector(builder:flatbuffers.Builder, numElems:number) {
-  builder.startVector(4, numElems, 4);
-}
+	static startLevelsVector(builder: flatbuffers.Builder, numElems: number) {
+		builder.startVector(4, numElems, 4);
+	}
 
-static addTsNanos(builder:flatbuffers.Builder, tsNanos:bigint) {
-  builder.addFieldInt64(4, tsNanos, BigInt('0'));
-}
+	static addTsNanos(builder: flatbuffers.Builder, tsNanos: bigint) {
+		builder.addFieldInt64(4, tsNanos, BigInt("0"));
+	}
 
-static addBestBidTicks(builder:flatbuffers.Builder, bestBidTicks:number) {
-  builder.addFieldInt32(5, bestBidTicks, 0);
-}
+	static addBestBidTicks(builder: flatbuffers.Builder, bestBidTicks: number) {
+		builder.addFieldInt32(5, bestBidTicks, 0);
+	}
 
-static addBestAskTicks(builder:flatbuffers.Builder, bestAskTicks:number) {
-  builder.addFieldInt32(6, bestAskTicks, 0);
-}
+	static addBestAskTicks(builder: flatbuffers.Builder, bestAskTicks: number) {
+		builder.addFieldInt32(6, bestAskTicks, 0);
+	}
 
-static endBookDelta(builder:flatbuffers.Builder):flatbuffers.Offset {
-  const offset = builder.endObject();
-  return offset;
-}
+	static endBookDelta(builder: flatbuffers.Builder): flatbuffers.Offset {
+		const offset = builder.endObject();
+		return offset;
+	}
 
-static createBookDelta(builder:flatbuffers.Builder, instrumentId:number, feedSeq:bigint, kind:DeltaKind, levelsOffset:flatbuffers.Offset, tsNanos:bigint, bestBidTicks:number, bestAskTicks:number):flatbuffers.Offset {
-  BookDelta.startBookDelta(builder);
-  BookDelta.addInstrumentId(builder, instrumentId);
-  BookDelta.addFeedSeq(builder, feedSeq);
-  BookDelta.addKind(builder, kind);
-  BookDelta.addLevels(builder, levelsOffset);
-  BookDelta.addTsNanos(builder, tsNanos);
-  BookDelta.addBestBidTicks(builder, bestBidTicks);
-  BookDelta.addBestAskTicks(builder, bestAskTicks);
-  return BookDelta.endBookDelta(builder);
-}
+	static createBookDelta(
+		builder: flatbuffers.Builder,
+		instrumentId: number,
+		feedSeq: bigint,
+		kind: DeltaKind,
+		levelsOffset: flatbuffers.Offset,
+		tsNanos: bigint,
+		bestBidTicks: number,
+		bestAskTicks: number,
+	): flatbuffers.Offset {
+		BookDelta.startBookDelta(builder);
+		BookDelta.addInstrumentId(builder, instrumentId);
+		BookDelta.addFeedSeq(builder, feedSeq);
+		BookDelta.addKind(builder, kind);
+		BookDelta.addLevels(builder, levelsOffset);
+		BookDelta.addTsNanos(builder, tsNanos);
+		BookDelta.addBestBidTicks(builder, bestBidTicks);
+		BookDelta.addBestAskTicks(builder, bestAskTicks);
+		return BookDelta.endBookDelta(builder);
+	}
 
-unpack(): BookDeltaT {
-  return new BookDeltaT(
-    this.instrumentId(),
-    this.feedSeq(),
-    this.kind(),
-    this.bb!.createObjList<PriceLevelDelta, PriceLevelDeltaT>(this.levels.bind(this), this.levelsLength()),
-    this.tsNanos(),
-    this.bestBidTicks(),
-    this.bestAskTicks()
-  );
-}
+	unpack(): BookDeltaT {
+		return new BookDeltaT(
+			this.instrumentId(),
+			this.feedSeq(),
+			this.kind(),
+			this.bb!.createObjList<PriceLevelDelta, PriceLevelDeltaT>(
+				this.levels.bind(this),
+				this.levelsLength(),
+			),
+			this.tsNanos(),
+			this.bestBidTicks(),
+			this.bestAskTicks(),
+		);
+	}
 
-
-unpackTo(_o: BookDeltaT): void {
-  _o.instrumentId = this.instrumentId();
-  _o.feedSeq = this.feedSeq();
-  _o.kind = this.kind();
-  _o.levels = this.bb!.createObjList<PriceLevelDelta, PriceLevelDeltaT>(this.levels.bind(this), this.levelsLength());
-  _o.tsNanos = this.tsNanos();
-  _o.bestBidTicks = this.bestBidTicks();
-  _o.bestAskTicks = this.bestAskTicks();
-}
+	unpackTo(_o: BookDeltaT): void {
+		_o.instrumentId = this.instrumentId();
+		_o.feedSeq = this.feedSeq();
+		_o.kind = this.kind();
+		_o.levels = this.bb!.createObjList<PriceLevelDelta, PriceLevelDeltaT>(
+			this.levels.bind(this),
+			this.levelsLength(),
+		);
+		_o.tsNanos = this.tsNanos();
+		_o.bestBidTicks = this.bestBidTicks();
+		_o.bestAskTicks = this.bestAskTicks();
+	}
 }
 
 export class BookDeltaT implements flatbuffers.IGeneratedObject {
-constructor(
-  public instrumentId: number = 0,
-  public feedSeq: bigint = BigInt('0'),
-  public kind: DeltaKind = DeltaKind.PriceLevel,
-  public levels: (PriceLevelDeltaT)[] = [],
-  public tsNanos: bigint = BigInt('0'),
-  public bestBidTicks: number = 0,
-  public bestAskTicks: number = 0
-){}
+	constructor(
+		public instrumentId: number = 0,
+		public feedSeq: bigint = BigInt("0"),
+		public kind: DeltaKind = DeltaKind.PriceLevel,
+		public levels: PriceLevelDeltaT[] = [],
+		public tsNanos: bigint = BigInt("0"),
+		public bestBidTicks: number = 0,
+		public bestAskTicks: number = 0,
+	) {}
 
+	pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+		const levels = BookDelta.createLevelsVector(
+			builder,
+			builder.createObjectOffsetList(this.levels),
+		);
 
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  const levels = BookDelta.createLevelsVector(builder, builder.createObjectOffsetList(this.levels));
-
-  return BookDelta.createBookDelta(builder,
-    this.instrumentId,
-    this.feedSeq,
-    this.kind,
-    levels,
-    this.tsNanos,
-    this.bestBidTicks,
-    this.bestAskTicks
-  );
-}
+		return BookDelta.createBookDelta(
+			builder,
+			this.instrumentId,
+			this.feedSeq,
+			this.kind,
+			levels,
+			this.tsNanos,
+			this.bestBidTicks,
+			this.bestAskTicks,
+		);
+	}
 }

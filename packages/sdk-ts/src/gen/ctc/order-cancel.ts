@@ -2,115 +2,132 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-import * as flatbuffers from 'flatbuffers';
+import * as flatbuffers from "flatbuffers";
 
+export class OrderCancel
+	implements flatbuffers.IUnpackableObject<OrderCancelT>
+{
+	bb: flatbuffers.ByteBuffer | null = null;
+	bb_pos = 0;
+	__init(i: number, bb: flatbuffers.ByteBuffer): OrderCancel {
+		this.bb_pos = i;
+		this.bb = bb;
+		return this;
+	}
 
+	static getRootAsOrderCancel(
+		bb: flatbuffers.ByteBuffer,
+		obj?: OrderCancel,
+	): OrderCancel {
+		return (obj || new OrderCancel()).__init(
+			bb.readInt32(bb.position()) + bb.position(),
+			bb,
+		);
+	}
 
-export class OrderCancel implements flatbuffers.IUnpackableObject<OrderCancelT> {
-  bb: flatbuffers.ByteBuffer|null = null;
-  bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):OrderCancel {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+	static getSizePrefixedRootAsOrderCancel(
+		bb: flatbuffers.ByteBuffer,
+		obj?: OrderCancel,
+	): OrderCancel {
+		bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
+		return (obj || new OrderCancel()).__init(
+			bb.readInt32(bb.position()) + bb.position(),
+			bb,
+		);
+	}
 
-static getRootAsOrderCancel(bb:flatbuffers.ByteBuffer, obj?:OrderCancel):OrderCancel {
-  return (obj || new OrderCancel()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
-}
+	clOrdId(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 4);
+		return offset ? this.bb!.readUint64(this.bb_pos + offset) : BigInt("0");
+	}
 
-static getSizePrefixedRootAsOrderCancel(bb:flatbuffers.ByteBuffer, obj?:OrderCancel):OrderCancel {
-  bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
-  return (obj || new OrderCancel()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
-}
+	instrumentId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 6);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-clOrdId():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? this.bb!.readUint64(this.bb_pos + offset) : BigInt('0');
-}
+	userId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 8);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-instrumentId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 6);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	teamId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 10);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-userId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 8);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	static startOrderCancel(builder: flatbuffers.Builder) {
+		builder.startObject(4);
+	}
 
-teamId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 10);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	static addClOrdId(builder: flatbuffers.Builder, clOrdId: bigint) {
+		builder.addFieldInt64(0, clOrdId, BigInt("0"));
+	}
 
-static startOrderCancel(builder:flatbuffers.Builder) {
-  builder.startObject(4);
-}
+	static addInstrumentId(builder: flatbuffers.Builder, instrumentId: number) {
+		builder.addFieldInt32(1, instrumentId, 0);
+	}
 
-static addClOrdId(builder:flatbuffers.Builder, clOrdId:bigint) {
-  builder.addFieldInt64(0, clOrdId, BigInt('0'));
-}
+	static addUserId(builder: flatbuffers.Builder, userId: number) {
+		builder.addFieldInt32(2, userId, 0);
+	}
 
-static addInstrumentId(builder:flatbuffers.Builder, instrumentId:number) {
-  builder.addFieldInt32(1, instrumentId, 0);
-}
+	static addTeamId(builder: flatbuffers.Builder, teamId: number) {
+		builder.addFieldInt32(3, teamId, 0);
+	}
 
-static addUserId(builder:flatbuffers.Builder, userId:number) {
-  builder.addFieldInt32(2, userId, 0);
-}
+	static endOrderCancel(builder: flatbuffers.Builder): flatbuffers.Offset {
+		const offset = builder.endObject();
+		return offset;
+	}
 
-static addTeamId(builder:flatbuffers.Builder, teamId:number) {
-  builder.addFieldInt32(3, teamId, 0);
-}
+	static createOrderCancel(
+		builder: flatbuffers.Builder,
+		clOrdId: bigint,
+		instrumentId: number,
+		userId: number,
+		teamId: number,
+	): flatbuffers.Offset {
+		OrderCancel.startOrderCancel(builder);
+		OrderCancel.addClOrdId(builder, clOrdId);
+		OrderCancel.addInstrumentId(builder, instrumentId);
+		OrderCancel.addUserId(builder, userId);
+		OrderCancel.addTeamId(builder, teamId);
+		return OrderCancel.endOrderCancel(builder);
+	}
 
-static endOrderCancel(builder:flatbuffers.Builder):flatbuffers.Offset {
-  const offset = builder.endObject();
-  return offset;
-}
+	unpack(): OrderCancelT {
+		return new OrderCancelT(
+			this.clOrdId(),
+			this.instrumentId(),
+			this.userId(),
+			this.teamId(),
+		);
+	}
 
-static createOrderCancel(builder:flatbuffers.Builder, clOrdId:bigint, instrumentId:number, userId:number, teamId:number):flatbuffers.Offset {
-  OrderCancel.startOrderCancel(builder);
-  OrderCancel.addClOrdId(builder, clOrdId);
-  OrderCancel.addInstrumentId(builder, instrumentId);
-  OrderCancel.addUserId(builder, userId);
-  OrderCancel.addTeamId(builder, teamId);
-  return OrderCancel.endOrderCancel(builder);
-}
-
-unpack(): OrderCancelT {
-  return new OrderCancelT(
-    this.clOrdId(),
-    this.instrumentId(),
-    this.userId(),
-    this.teamId()
-  );
-}
-
-
-unpackTo(_o: OrderCancelT): void {
-  _o.clOrdId = this.clOrdId();
-  _o.instrumentId = this.instrumentId();
-  _o.userId = this.userId();
-  _o.teamId = this.teamId();
-}
+	unpackTo(_o: OrderCancelT): void {
+		_o.clOrdId = this.clOrdId();
+		_o.instrumentId = this.instrumentId();
+		_o.userId = this.userId();
+		_o.teamId = this.teamId();
+	}
 }
 
 export class OrderCancelT implements flatbuffers.IGeneratedObject {
-constructor(
-  public clOrdId: bigint = BigInt('0'),
-  public instrumentId: number = 0,
-  public userId: number = 0,
-  public teamId: number = 0
-){}
+	constructor(
+		public clOrdId: bigint = BigInt("0"),
+		public instrumentId: number = 0,
+		public userId: number = 0,
+		public teamId: number = 0,
+	) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return OrderCancel.createOrderCancel(builder,
-    this.clOrdId,
-    this.instrumentId,
-    this.userId,
-    this.teamId
-  );
-}
+	pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+		return OrderCancel.createOrderCancel(
+			builder,
+			this.clOrdId,
+			this.instrumentId,
+			this.userId,
+			this.teamId,
+		);
+	}
 }

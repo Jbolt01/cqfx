@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
 export enum TIF {
-  GFD = 0,
-  IOC = 1,
-  FOK = 2
+	GFD = 0,
+	IOC = 1,
+	FOK = 2,
 }

@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
 export enum InstrType {
-  Equity = 0,
-  ETF = 1,
-  Option = 2
+	Equity = 0,
+	ETF = 1,
+	Option = 2,
 }

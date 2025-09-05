@@ -2,231 +2,255 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-import * as flatbuffers from 'flatbuffers';
+import * as flatbuffers from "flatbuffers";
 
-import { OrderType } from '../ctc/order-type.js';
-import { Side } from '../ctc/side.js';
-import { StpMode } from '../ctc/stp-mode.js';
-import { TIF } from '../ctc/tif.js';
-
+import { OrderType } from "../ctc/order-type.js";
+import { Side } from "../ctc/side.js";
+import { StpMode } from "../ctc/stp-mode.js";
+import { TIF } from "../ctc/tif.js";
 
 export class OrderNew implements flatbuffers.IUnpackableObject<OrderNewT> {
-  bb: flatbuffers.ByteBuffer|null = null;
-  bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):OrderNew {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+	bb: flatbuffers.ByteBuffer | null = null;
+	bb_pos = 0;
+	__init(i: number, bb: flatbuffers.ByteBuffer): OrderNew {
+		this.bb_pos = i;
+		this.bb = bb;
+		return this;
+	}
 
-static getRootAsOrderNew(bb:flatbuffers.ByteBuffer, obj?:OrderNew):OrderNew {
-  return (obj || new OrderNew()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
-}
+	static getRootAsOrderNew(
+		bb: flatbuffers.ByteBuffer,
+		obj?: OrderNew,
+	): OrderNew {
+		return (obj || new OrderNew()).__init(
+			bb.readInt32(bb.position()) + bb.position(),
+			bb,
+		);
+	}
 
-static getSizePrefixedRootAsOrderNew(bb:flatbuffers.ByteBuffer, obj?:OrderNew):OrderNew {
-  bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
-  return (obj || new OrderNew()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
-}
+	static getSizePrefixedRootAsOrderNew(
+		bb: flatbuffers.ByteBuffer,
+		obj?: OrderNew,
+	): OrderNew {
+		bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
+		return (obj || new OrderNew()).__init(
+			bb.readInt32(bb.position()) + bb.position(),
+			bb,
+		);
+	}
 
-clOrdId():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? this.bb!.readUint64(this.bb_pos + offset) : BigInt('0');
-}
+	clOrdId(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 4);
+		return offset ? this.bb!.readUint64(this.bb_pos + offset) : BigInt("0");
+	}
 
-instrumentId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 6);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	instrumentId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 6);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-side():Side {
-  const offset = this.bb!.__offset(this.bb_pos, 8);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : Side.Buy;
-}
+	side(): Side {
+		const offset = this.bb!.__offset(this.bb_pos, 8);
+		return offset ? this.bb!.readUint8(this.bb_pos + offset) : Side.Buy;
+	}
 
-type():OrderType {
-  const offset = this.bb!.__offset(this.bb_pos, 10);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : OrderType.Limit;
-}
+	type(): OrderType {
+		const offset = this.bb!.__offset(this.bb_pos, 10);
+		return offset ? this.bb!.readUint8(this.bb_pos + offset) : OrderType.Limit;
+	}
 
-tif():TIF {
-  const offset = this.bb!.__offset(this.bb_pos, 12);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : TIF.GFD;
-}
+	tif(): TIF {
+		const offset = this.bb!.__offset(this.bb_pos, 12);
+		return offset ? this.bb!.readUint8(this.bb_pos + offset) : TIF.GFD;
+	}
 
-pxTicks():number {
-  const offset = this.bb!.__offset(this.bb_pos, 14);
-  return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
-}
+	pxTicks(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 14);
+		return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
+	}
 
-lots():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 16);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
-}
+	lots(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 16);
+		return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt("0");
+	}
 
-minFillLots():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 18);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
-}
+	minFillLots(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 18);
+		return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt("0");
+	}
 
-postOnly():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 20);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
+	postOnly(): boolean {
+		const offset = this.bb!.__offset(this.bb_pos, 20);
+		return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
+	}
 
-stp():StpMode {
-  const offset = this.bb!.__offset(this.bb_pos, 22);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : StpMode.None;
-}
+	stp(): StpMode {
+		const offset = this.bb!.__offset(this.bb_pos, 22);
+		return offset ? this.bb!.readUint8(this.bb_pos + offset) : StpMode.None;
+	}
 
-userId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 24);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	userId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 24);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-teamId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 26);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	teamId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 26);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-static startOrderNew(builder:flatbuffers.Builder) {
-  builder.startObject(12);
-}
+	static startOrderNew(builder: flatbuffers.Builder) {
+		builder.startObject(12);
+	}
 
-static addClOrdId(builder:flatbuffers.Builder, clOrdId:bigint) {
-  builder.addFieldInt64(0, clOrdId, BigInt('0'));
-}
+	static addClOrdId(builder: flatbuffers.Builder, clOrdId: bigint) {
+		builder.addFieldInt64(0, clOrdId, BigInt("0"));
+	}
 
-static addInstrumentId(builder:flatbuffers.Builder, instrumentId:number) {
-  builder.addFieldInt32(1, instrumentId, 0);
-}
+	static addInstrumentId(builder: flatbuffers.Builder, instrumentId: number) {
+		builder.addFieldInt32(1, instrumentId, 0);
+	}
 
-static addSide(builder:flatbuffers.Builder, side:Side) {
-  builder.addFieldInt8(2, side, Side.Buy);
-}
+	static addSide(builder: flatbuffers.Builder, side: Side) {
+		builder.addFieldInt8(2, side, Side.Buy);
+	}
 
-static addType(builder:flatbuffers.Builder, type:OrderType) {
-  builder.addFieldInt8(3, type, OrderType.Limit);
-}
+	static addType(builder: flatbuffers.Builder, type: OrderType) {
+		builder.addFieldInt8(3, type, OrderType.Limit);
+	}
 
-static addTif(builder:flatbuffers.Builder, tif:TIF) {
-  builder.addFieldInt8(4, tif, TIF.GFD);
-}
+	static addTif(builder: flatbuffers.Builder, tif: TIF) {
+		builder.addFieldInt8(4, tif, TIF.GFD);
+	}
 
-static addPxTicks(builder:flatbuffers.Builder, pxTicks:number) {
-  builder.addFieldInt32(5, pxTicks, 0);
-}
+	static addPxTicks(builder: flatbuffers.Builder, pxTicks: number) {
+		builder.addFieldInt32(5, pxTicks, 0);
+	}
 
-static addLots(builder:flatbuffers.Builder, lots:bigint) {
-  builder.addFieldInt64(6, lots, BigInt('0'));
-}
+	static addLots(builder: flatbuffers.Builder, lots: bigint) {
+		builder.addFieldInt64(6, lots, BigInt("0"));
+	}
 
-static addMinFillLots(builder:flatbuffers.Builder, minFillLots:bigint) {
-  builder.addFieldInt64(7, minFillLots, BigInt('0'));
-}
+	static addMinFillLots(builder: flatbuffers.Builder, minFillLots: bigint) {
+		builder.addFieldInt64(7, minFillLots, BigInt("0"));
+	}
 
-static addPostOnly(builder:flatbuffers.Builder, postOnly:boolean) {
-  builder.addFieldInt8(8, +postOnly, +false);
-}
+	static addPostOnly(builder: flatbuffers.Builder, postOnly: boolean) {
+		builder.addFieldInt8(8, +postOnly, +false);
+	}
 
-static addStp(builder:flatbuffers.Builder, stp:StpMode) {
-  builder.addFieldInt8(9, stp, StpMode.None);
-}
+	static addStp(builder: flatbuffers.Builder, stp: StpMode) {
+		builder.addFieldInt8(9, stp, StpMode.None);
+	}
 
-static addUserId(builder:flatbuffers.Builder, userId:number) {
-  builder.addFieldInt32(10, userId, 0);
-}
+	static addUserId(builder: flatbuffers.Builder, userId: number) {
+		builder.addFieldInt32(10, userId, 0);
+	}
 
-static addTeamId(builder:flatbuffers.Builder, teamId:number) {
-  builder.addFieldInt32(11, teamId, 0);
-}
+	static addTeamId(builder: flatbuffers.Builder, teamId: number) {
+		builder.addFieldInt32(11, teamId, 0);
+	}
 
-static endOrderNew(builder:flatbuffers.Builder):flatbuffers.Offset {
-  const offset = builder.endObject();
-  return offset;
-}
+	static endOrderNew(builder: flatbuffers.Builder): flatbuffers.Offset {
+		const offset = builder.endObject();
+		return offset;
+	}
 
-static createOrderNew(builder:flatbuffers.Builder, clOrdId:bigint, instrumentId:number, side:Side, type:OrderType, tif:TIF, pxTicks:number, lots:bigint, minFillLots:bigint, postOnly:boolean, stp:StpMode, userId:number, teamId:number):flatbuffers.Offset {
-  OrderNew.startOrderNew(builder);
-  OrderNew.addClOrdId(builder, clOrdId);
-  OrderNew.addInstrumentId(builder, instrumentId);
-  OrderNew.addSide(builder, side);
-  OrderNew.addType(builder, type);
-  OrderNew.addTif(builder, tif);
-  OrderNew.addPxTicks(builder, pxTicks);
-  OrderNew.addLots(builder, lots);
-  OrderNew.addMinFillLots(builder, minFillLots);
-  OrderNew.addPostOnly(builder, postOnly);
-  OrderNew.addStp(builder, stp);
-  OrderNew.addUserId(builder, userId);
-  OrderNew.addTeamId(builder, teamId);
-  return OrderNew.endOrderNew(builder);
-}
+	static createOrderNew(
+		builder: flatbuffers.Builder,
+		clOrdId: bigint,
+		instrumentId: number,
+		side: Side,
+		type: OrderType,
+		tif: TIF,
+		pxTicks: number,
+		lots: bigint,
+		minFillLots: bigint,
+		postOnly: boolean,
+		stp: StpMode,
+		userId: number,
+		teamId: number,
+	): flatbuffers.Offset {
+		OrderNew.startOrderNew(builder);
+		OrderNew.addClOrdId(builder, clOrdId);
+		OrderNew.addInstrumentId(builder, instrumentId);
+		OrderNew.addSide(builder, side);
+		OrderNew.addType(builder, type);
+		OrderNew.addTif(builder, tif);
+		OrderNew.addPxTicks(builder, pxTicks);
+		OrderNew.addLots(builder, lots);
+		OrderNew.addMinFillLots(builder, minFillLots);
+		OrderNew.addPostOnly(builder, postOnly);
+		OrderNew.addStp(builder, stp);
+		OrderNew.addUserId(builder, userId);
+		OrderNew.addTeamId(builder, teamId);
+		return OrderNew.endOrderNew(builder);
+	}
 
-unpack(): OrderNewT {
-  return new OrderNewT(
-    this.clOrdId(),
-    this.instrumentId(),
-    this.side(),
-    this.type(),
-    this.tif(),
-    this.pxTicks(),
-    this.lots(),
-    this.minFillLots(),
-    this.postOnly(),
-    this.stp(),
-    this.userId(),
-    this.teamId()
-  );
-}
+	unpack(): OrderNewT {
+		return new OrderNewT(
+			this.clOrdId(),
+			this.instrumentId(),
+			this.side(),
+			this.type(),
+			this.tif(),
+			this.pxTicks(),
+			this.lots(),
+			this.minFillLots(),
+			this.postOnly(),
+			this.stp(),
+			this.userId(),
+			this.teamId(),
+		);
+	}
 
-
-unpackTo(_o: OrderNewT): void {
-  _o.clOrdId = this.clOrdId();
-  _o.instrumentId = this.instrumentId();
-  _o.side = this.side();
-  _o.type = this.type();
-  _o.tif = this.tif();
-  _o.pxTicks = this.pxTicks();
-  _o.lots = this.lots();
-  _o.minFillLots = this.minFillLots();
-  _o.postOnly = this.postOnly();
-  _o.stp = this.stp();
-  _o.userId = this.userId();
-  _o.teamId = this.teamId();
-}
+	unpackTo(_o: OrderNewT): void {
+		_o.clOrdId = this.clOrdId();
+		_o.instrumentId = this.instrumentId();
+		_o.side = this.side();
+		_o.type = this.type();
+		_o.tif = this.tif();
+		_o.pxTicks = this.pxTicks();
+		_o.lots = this.lots();
+		_o.minFillLots = this.minFillLots();
+		_o.postOnly = this.postOnly();
+		_o.stp = this.stp();
+		_o.userId = this.userId();
+		_o.teamId = this.teamId();
+	}
 }
 
 export class OrderNewT implements flatbuffers.IGeneratedObject {
-constructor(
-  public clOrdId: bigint = BigInt('0'),
-  public instrumentId: number = 0,
-  public side: Side = Side.Buy,
-  public type: OrderType = OrderType.Limit,
-  public tif: TIF = TIF.GFD,
-  public pxTicks: number = 0,
-  public lots: bigint = BigInt('0'),
-  public minFillLots: bigint = BigInt('0'),
-  public postOnly: boolean = false,
-  public stp: StpMode = StpMode.None,
-  public userId: number = 0,
-  public teamId: number = 0
-){}
+	constructor(
+		public clOrdId: bigint = BigInt("0"),
+		public instrumentId: number = 0,
+		public side: Side = Side.Buy,
+		public type: OrderType = OrderType.Limit,
+		public tif: TIF = TIF.GFD,
+		public pxTicks: number = 0,
+		public lots: bigint = BigInt("0"),
+		public minFillLots: bigint = BigInt("0"),
+		public postOnly: boolean = false,
+		public stp: StpMode = StpMode.None,
+		public userId: number = 0,
+		public teamId: number = 0,
+	) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return OrderNew.createOrderNew(builder,
-    this.clOrdId,
-    this.instrumentId,
-    this.side,
-    this.type,
-    this.tif,
-    this.pxTicks,
-    this.lots,
-    this.minFillLots,
-    this.postOnly,
-    this.stp,
-    this.userId,
-    this.teamId
-  );
-}
+	pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+		return OrderNew.createOrderNew(
+			builder,
+			this.clOrdId,
+			this.instrumentId,
+			this.side,
+			this.type,
+			this.tif,
+			this.pxTicks,
+			this.lots,
+			this.minFillLots,
+			this.postOnly,
+			this.stp,
+			this.userId,
+			this.teamId,
+		);
+	}
 }

@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
 export enum EventType {
-  Heartbeat = 0,
-  Session = 1,
-  Config = 2
+	Heartbeat = 0,
+	Session = 1,
+	Config = 2,
 }

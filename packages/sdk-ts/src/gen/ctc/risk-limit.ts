@@ -2,143 +2,166 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-import * as flatbuffers from 'flatbuffers';
-
-
+import * as flatbuffers from "flatbuffers";
 
 export class RiskLimit implements flatbuffers.IUnpackableObject<RiskLimitT> {
-  bb: flatbuffers.ByteBuffer|null = null;
-  bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):RiskLimit {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+	bb: flatbuffers.ByteBuffer | null = null;
+	bb_pos = 0;
+	__init(i: number, bb: flatbuffers.ByteBuffer): RiskLimit {
+		this.bb_pos = i;
+		this.bb = bb;
+		return this;
+	}
 
-static getRootAsRiskLimit(bb:flatbuffers.ByteBuffer, obj?:RiskLimit):RiskLimit {
-  return (obj || new RiskLimit()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
-}
+	static getRootAsRiskLimit(
+		bb: flatbuffers.ByteBuffer,
+		obj?: RiskLimit,
+	): RiskLimit {
+		return (obj || new RiskLimit()).__init(
+			bb.readInt32(bb.position()) + bb.position(),
+			bb,
+		);
+	}
 
-static getSizePrefixedRootAsRiskLimit(bb:flatbuffers.ByteBuffer, obj?:RiskLimit):RiskLimit {
-  bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
-  return (obj || new RiskLimit()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
-}
+	static getSizePrefixedRootAsRiskLimit(
+		bb: flatbuffers.ByteBuffer,
+		obj?: RiskLimit,
+	): RiskLimit {
+		bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
+		return (obj || new RiskLimit()).__init(
+			bb.readInt32(bb.position()) + bb.position(),
+			bb,
+		);
+	}
 
-teamId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	teamId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 4);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-instrumentId():number {
-  const offset = this.bb!.__offset(this.bb_pos, 6);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	instrumentId(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 6);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-posMinLots():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 8);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
-}
+	posMinLots(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 8);
+		return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt("0");
+	}
 
-posMaxLots():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 10);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
-}
+	posMaxLots(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 10);
+		return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt("0");
+	}
 
-notionalMaxTicks():bigint {
-  const offset = this.bb!.__offset(this.bb_pos, 12);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
-}
+	notionalMaxTicks(): bigint {
+		const offset = this.bb!.__offset(this.bb_pos, 12);
+		return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt("0");
+	}
 
-maxOrdersPerSec():number {
-  const offset = this.bb!.__offset(this.bb_pos, 14);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
+	maxOrdersPerSec(): number {
+		const offset = this.bb!.__offset(this.bb_pos, 14);
+		return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+	}
 
-static startRiskLimit(builder:flatbuffers.Builder) {
-  builder.startObject(6);
-}
+	static startRiskLimit(builder: flatbuffers.Builder) {
+		builder.startObject(6);
+	}
 
-static addTeamId(builder:flatbuffers.Builder, teamId:number) {
-  builder.addFieldInt32(0, teamId, 0);
-}
+	static addTeamId(builder: flatbuffers.Builder, teamId: number) {
+		builder.addFieldInt32(0, teamId, 0);
+	}
 
-static addInstrumentId(builder:flatbuffers.Builder, instrumentId:number) {
-  builder.addFieldInt32(1, instrumentId, 0);
-}
+	static addInstrumentId(builder: flatbuffers.Builder, instrumentId: number) {
+		builder.addFieldInt32(1, instrumentId, 0);
+	}
 
-static addPosMinLots(builder:flatbuffers.Builder, posMinLots:bigint) {
-  builder.addFieldInt64(2, posMinLots, BigInt('0'));
-}
+	static addPosMinLots(builder: flatbuffers.Builder, posMinLots: bigint) {
+		builder.addFieldInt64(2, posMinLots, BigInt("0"));
+	}
 
-static addPosMaxLots(builder:flatbuffers.Builder, posMaxLots:bigint) {
-  builder.addFieldInt64(3, posMaxLots, BigInt('0'));
-}
+	static addPosMaxLots(builder: flatbuffers.Builder, posMaxLots: bigint) {
+		builder.addFieldInt64(3, posMaxLots, BigInt("0"));
+	}
 
-static addNotionalMaxTicks(builder:flatbuffers.Builder, notionalMaxTicks:bigint) {
-  builder.addFieldInt64(4, notionalMaxTicks, BigInt('0'));
-}
+	static addNotionalMaxTicks(
+		builder: flatbuffers.Builder,
+		notionalMaxTicks: bigint,
+	) {
+		builder.addFieldInt64(4, notionalMaxTicks, BigInt("0"));
+	}
 
-static addMaxOrdersPerSec(builder:flatbuffers.Builder, maxOrdersPerSec:number) {
-  builder.addFieldInt32(5, maxOrdersPerSec, 0);
-}
+	static addMaxOrdersPerSec(
+		builder: flatbuffers.Builder,
+		maxOrdersPerSec: number,
+	) {
+		builder.addFieldInt32(5, maxOrdersPerSec, 0);
+	}
 
-static endRiskLimit(builder:flatbuffers.Builder):flatbuffers.Offset {
-  const offset = builder.endObject();
-  return offset;
-}
+	static endRiskLimit(builder: flatbuffers.Builder): flatbuffers.Offset {
+		const offset = builder.endObject();
+		return offset;
+	}
 
-static createRiskLimit(builder:flatbuffers.Builder, teamId:number, instrumentId:number, posMinLots:bigint, posMaxLots:bigint, notionalMaxTicks:bigint, maxOrdersPerSec:number):flatbuffers.Offset {
-  RiskLimit.startRiskLimit(builder);
-  RiskLimit.addTeamId(builder, teamId);
-  RiskLimit.addInstrumentId(builder, instrumentId);
-  RiskLimit.addPosMinLots(builder, posMinLots);
-  RiskLimit.addPosMaxLots(builder, posMaxLots);
-  RiskLimit.addNotionalMaxTicks(builder, notionalMaxTicks);
-  RiskLimit.addMaxOrdersPerSec(builder, maxOrdersPerSec);
-  return RiskLimit.endRiskLimit(builder);
-}
+	static createRiskLimit(
+		builder: flatbuffers.Builder,
+		teamId: number,
+		instrumentId: number,
+		posMinLots: bigint,
+		posMaxLots: bigint,
+		notionalMaxTicks: bigint,
+		maxOrdersPerSec: number,
+	): flatbuffers.Offset {
+		RiskLimit.startRiskLimit(builder);
+		RiskLimit.addTeamId(builder, teamId);
+		RiskLimit.addInstrumentId(builder, instrumentId);
+		RiskLimit.addPosMinLots(builder, posMinLots);
+		RiskLimit.addPosMaxLots(builder, posMaxLots);
+		RiskLimit.addNotionalMaxTicks(builder, notionalMaxTicks);
+		RiskLimit.addMaxOrdersPerSec(builder, maxOrdersPerSec);
+		return RiskLimit.endRiskLimit(builder);
+	}
 
-unpack(): RiskLimitT {
-  return new RiskLimitT(
-    this.teamId(),
-    this.instrumentId(),
-    this.posMinLots(),
-    this.posMaxLots(),
-    this.notionalMaxTicks(),
-    this.maxOrdersPerSec()
-  );
-}
+	unpack(): RiskLimitT {
+		return new RiskLimitT(
+			this.teamId(),
+			this.instrumentId(),
+			this.posMinLots(),
+			this.posMaxLots(),
+			this.notionalMaxTicks(),
+			this.maxOrdersPerSec(),
+		);
+	}
 
-
-unpackTo(_o: RiskLimitT): void {
-  _o.teamId = this.teamId();
-  _o.instrumentId = this.instrumentId();
-  _o.posMinLots = this.posMinLots();
-  _o.posMaxLots = this.posMaxLots();
-  _o.notionalMaxTicks = this.notionalMaxTicks();
-  _o.maxOrdersPerSec = this.maxOrdersPerSec();
-}
+	unpackTo(_o: RiskLimitT): void {
+		_o.teamId = this.teamId();
+		_o.instrumentId = this.instrumentId();
+		_o.posMinLots = this.posMinLots();
+		_o.posMaxLots = this.posMaxLots();
+		_o.notionalMaxTicks = this.notionalMaxTicks();
+		_o.maxOrdersPerSec = this.maxOrdersPerSec();
+	}
 }
 
 export class RiskLimitT implements flatbuffers.IGeneratedObject {
-constructor(
-  public teamId: number = 0,
-  public instrumentId: number = 0,
-  public posMinLots: bigint = BigInt('0'),
-  public posMaxLots: bigint = BigInt('0'),
-  public notionalMaxTicks: bigint = BigInt('0'),
-  public maxOrdersPerSec: number = 0
-){}
+	constructor(
+		public teamId: number = 0,
+		public instrumentId: number = 0,
+		public posMinLots: bigint = BigInt("0"),
+		public posMaxLots: bigint = BigInt("0"),
+		public notionalMaxTicks: bigint = BigInt("0"),
+		public maxOrdersPerSec: number = 0,
+	) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return RiskLimit.createRiskLimit(builder,
-    this.teamId,
-    this.instrumentId,
-    this.posMinLots,
-    this.posMaxLots,
-    this.notionalMaxTicks,
-    this.maxOrdersPerSec
-  );
-}
+	pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+		return RiskLimit.createRiskLimit(
+			builder,
+			this.teamId,
+			this.instrumentId,
+			this.posMinLots,
+			this.posMaxLots,
+			this.notionalMaxTicks,
+			this.maxOrdersPerSec,
+		);
+	}
 }

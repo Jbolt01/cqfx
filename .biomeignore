@@ -1,0 +1,16 @@
+node_modules/
+.pnpm-store/
+
+# Large vendor/binary content
+bin/
+
+# Generated bindings
+packages/sdk-ts/src/gen/
+packages/sdk-py/ctc_protocol/gen/
+packages/sdk-java/src/main/java/
+packages/sdk-cpp/include/
+
+# Build outputs
+**/dist/
+**/build/
+

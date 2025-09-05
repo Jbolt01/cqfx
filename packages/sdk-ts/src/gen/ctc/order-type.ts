@@ -3,6 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
 export enum OrderType {
-  Limit = 0,
-  Market = 1
+	Limit = 0,
+	Market = 1,
 }

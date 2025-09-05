@@ -2,93 +2,239 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-import { Ack, AckT } from '../ctc/ack.js';
-import { Auth, AuthT } from '../ctc/auth.js';
-import { BookDelta, BookDeltaT } from '../ctc/book-delta.js';
-import { CancelAll, CancelAllT } from '../ctc/cancel-all.js';
-import { ConfigSnapshot, ConfigSnapshotT } from '../ctc/config-snapshot.js';
-import { ETFCreateRedeem, ETFCreateRedeemT } from '../ctc/etfcreate-redeem.js';
-import { ETFCreateRedeemResult, ETFCreateRedeemResultT } from '../ctc/etfcreate-redeem-result.js';
-import { Heartbeat, HeartbeatT } from '../ctc/heartbeat.js';
-import { OrderCancel, OrderCancelT } from '../ctc/order-cancel.js';
-import { OrderNew, OrderNewT } from '../ctc/order-new.js';
-import { OrderReplace, OrderReplaceT } from '../ctc/order-replace.js';
-import { PositionUpdate, PositionUpdateT } from '../ctc/position-update.js';
-import { SessionEvent, SessionEventT } from '../ctc/session-event.js';
-import { Subscribe, SubscribeT } from '../ctc/subscribe.js';
-import { Trade, TradeT } from '../ctc/trade.js';
-import { Unsubscribe, UnsubscribeT } from '../ctc/unsubscribe.js';
-
+import { Ack, AckT } from "../ctc/ack.js";
+import { Auth, AuthT } from "../ctc/auth.js";
+import { BookDelta, BookDeltaT } from "../ctc/book-delta.js";
+import { CancelAll, CancelAllT } from "../ctc/cancel-all.js";
+import { ConfigSnapshot, ConfigSnapshotT } from "../ctc/config-snapshot.js";
+import { ETFCreateRedeem, ETFCreateRedeemT } from "../ctc/etfcreate-redeem.js";
+import {
+	ETFCreateRedeemResult,
+	ETFCreateRedeemResultT,
+} from "../ctc/etfcreate-redeem-result.js";
+import { Heartbeat, HeartbeatT } from "../ctc/heartbeat.js";
+import { OrderCancel, OrderCancelT } from "../ctc/order-cancel.js";
+import { OrderNew, OrderNewT } from "../ctc/order-new.js";
+import { OrderReplace, OrderReplaceT } from "../ctc/order-replace.js";
+import { PositionUpdate, PositionUpdateT } from "../ctc/position-update.js";
+import { SessionEvent, SessionEventT } from "../ctc/session-event.js";
+import { Subscribe, SubscribeT } from "../ctc/subscribe.js";
+import { Trade, TradeT } from "../ctc/trade.js";
+import { Unsubscribe, UnsubscribeT } from "../ctc/unsubscribe.js";
 
 export enum Payload {
-  NONE = 0,
-  Auth = 1,
-  Subscribe = 2,
-  Unsubscribe = 3,
-  Heartbeat = 4,
-  OrderNew = 5,
-  OrderReplace = 6,
-  OrderCancel = 7,
-  CancelAll = 8,
-  ETFCreateRedeem = 9,
-  Ack = 10,
-  Trade = 11,
-  BookDelta = 12,
-  PositionUpdate = 13,
-  ConfigSnapshot = 14,
-  SessionEvent = 15,
-  ETFCreateRedeemResult = 16
+	NONE = 0,
+	Auth = 1,
+	Subscribe = 2,
+	Unsubscribe = 3,
+	Heartbeat = 4,
+	OrderNew = 5,
+	OrderReplace = 6,
+	OrderCancel = 7,
+	CancelAll = 8,
+	ETFCreateRedeem = 9,
+	Ack = 10,
+	Trade = 11,
+	BookDelta = 12,
+	PositionUpdate = 13,
+	ConfigSnapshot = 14,
+	SessionEvent = 15,
+	ETFCreateRedeemResult = 16,
 }
 
 export function unionToPayload(
-  type: Payload,
-  accessor: (obj:Ack|Auth|BookDelta|CancelAll|ConfigSnapshot|ETFCreateRedeem|ETFCreateRedeemResult|Heartbeat|OrderCancel|OrderNew|OrderReplace|PositionUpdate|SessionEvent|Subscribe|Trade|Unsubscribe) => Ack|Auth|BookDelta|CancelAll|ConfigSnapshot|ETFCreateRedeem|ETFCreateRedeemResult|Heartbeat|OrderCancel|OrderNew|OrderReplace|PositionUpdate|SessionEvent|Subscribe|Trade|Unsubscribe|null
-): Ack|Auth|BookDelta|CancelAll|ConfigSnapshot|ETFCreateRedeem|ETFCreateRedeemResult|Heartbeat|OrderCancel|OrderNew|OrderReplace|PositionUpdate|SessionEvent|Subscribe|Trade|Unsubscribe|null {
-  switch(Payload[type]) {
-    case 'NONE': return null; 
-    case 'Auth': return accessor(new Auth())! as Auth;
-    case 'Subscribe': return accessor(new Subscribe())! as Subscribe;
-    case 'Unsubscribe': return accessor(new Unsubscribe())! as Unsubscribe;
-    case 'Heartbeat': return accessor(new Heartbeat())! as Heartbeat;
-    case 'OrderNew': return accessor(new OrderNew())! as OrderNew;
-    case 'OrderReplace': return accessor(new OrderReplace())! as OrderReplace;
-    case 'OrderCancel': return accessor(new OrderCancel())! as OrderCancel;
-    case 'CancelAll': return accessor(new CancelAll())! as CancelAll;
-    case 'ETFCreateRedeem': return accessor(new ETFCreateRedeem())! as ETFCreateRedeem;
-    case 'Ack': return accessor(new Ack())! as Ack;
-    case 'Trade': return accessor(new Trade())! as Trade;
-    case 'BookDelta': return accessor(new BookDelta())! as BookDelta;
-    case 'PositionUpdate': return accessor(new PositionUpdate())! as PositionUpdate;
-    case 'ConfigSnapshot': return accessor(new ConfigSnapshot())! as ConfigSnapshot;
-    case 'SessionEvent': return accessor(new SessionEvent())! as SessionEvent;
-    case 'ETFCreateRedeemResult': return accessor(new ETFCreateRedeemResult())! as ETFCreateRedeemResult;
-    default: return null;
-  }
+	type: Payload,
+	accessor: (
+		obj:
+			| Ack
+			| Auth
+			| BookDelta
+			| CancelAll
+			| ConfigSnapshot
+			| ETFCreateRedeem
+			| ETFCreateRedeemResult
+			| Heartbeat
+			| OrderCancel
+			| OrderNew
+			| OrderReplace
+			| PositionUpdate
+			| SessionEvent
+			| Subscribe
+			| Trade
+			| Unsubscribe,
+	) =>
+		| Ack
+		| Auth
+		| BookDelta
+		| CancelAll
+		| ConfigSnapshot
+		| ETFCreateRedeem
+		| ETFCreateRedeemResult
+		| Heartbeat
+		| OrderCancel
+		| OrderNew
+		| OrderReplace
+		| PositionUpdate
+		| SessionEvent
+		| Subscribe
+		| Trade
+		| Unsubscribe
+		| null,
+):
+	| Ack
+	| Auth
+	| BookDelta
+	| CancelAll
+	| ConfigSnapshot
+	| ETFCreateRedeem
+	| ETFCreateRedeemResult
+	| Heartbeat
+	| OrderCancel
+	| OrderNew
+	| OrderReplace
+	| PositionUpdate
+	| SessionEvent
+	| Subscribe
+	| Trade
+	| Unsubscribe
+	| null {
+	switch (Payload[type]) {
+		case "NONE":
+			return null;
+		case "Auth":
+			return accessor(new Auth())! as Auth;
+		case "Subscribe":
+			return accessor(new Subscribe())! as Subscribe;
+		case "Unsubscribe":
+			return accessor(new Unsubscribe())! as Unsubscribe;
+		case "Heartbeat":
+			return accessor(new Heartbeat())! as Heartbeat;
+		case "OrderNew":
+			return accessor(new OrderNew())! as OrderNew;
+		case "OrderReplace":
+			return accessor(new OrderReplace())! as OrderReplace;
+		case "OrderCancel":
+			return accessor(new OrderCancel())! as OrderCancel;
+		case "CancelAll":
+			return accessor(new CancelAll())! as CancelAll;
+		case "ETFCreateRedeem":
+			return accessor(new ETFCreateRedeem())! as ETFCreateRedeem;
+		case "Ack":
+			return accessor(new Ack())! as Ack;
+		case "Trade":
+			return accessor(new Trade())! as Trade;
+		case "BookDelta":
+			return accessor(new BookDelta())! as BookDelta;
+		case "PositionUpdate":
+			return accessor(new PositionUpdate())! as PositionUpdate;
+		case "ConfigSnapshot":
+			return accessor(new ConfigSnapshot())! as ConfigSnapshot;
+		case "SessionEvent":
+			return accessor(new SessionEvent())! as SessionEvent;
+		case "ETFCreateRedeemResult":
+			return accessor(new ETFCreateRedeemResult())! as ETFCreateRedeemResult;
+		default:
+			return null;
+	}
 }
 
 export function unionListToPayload(
-  type: Payload, 
-  accessor: (index: number, obj:Ack|Auth|BookDelta|CancelAll|ConfigSnapshot|ETFCreateRedeem|ETFCreateRedeemResult|Heartbeat|OrderCancel|OrderNew|OrderReplace|PositionUpdate|SessionEvent|Subscribe|Trade|Unsubscribe) => Ack|Auth|BookDelta|CancelAll|ConfigSnapshot|ETFCreateRedeem|ETFCreateRedeemResult|Heartbeat|OrderCancel|OrderNew|OrderReplace|PositionUpdate|SessionEvent|Subscribe|Trade|Unsubscribe|null, 
-  index: number
-): Ack|Auth|BookDelta|CancelAll|ConfigSnapshot|ETFCreateRedeem|ETFCreateRedeemResult|Heartbeat|OrderCancel|OrderNew|OrderReplace|PositionUpdate|SessionEvent|Subscribe|Trade|Unsubscribe|null {
-  switch(Payload[type]) {
-    case 'NONE': return null; 
-    case 'Auth': return accessor(index, new Auth())! as Auth;
-    case 'Subscribe': return accessor(index, new Subscribe())! as Subscribe;
-    case 'Unsubscribe': return accessor(index, new Unsubscribe())! as Unsubscribe;
-    case 'Heartbeat': return accessor(index, new Heartbeat())! as Heartbeat;
-    case 'OrderNew': return accessor(index, new OrderNew())! as OrderNew;
-    case 'OrderReplace': return accessor(index, new OrderReplace())! as OrderReplace;
-    case 'OrderCancel': return accessor(index, new OrderCancel())! as OrderCancel;
-    case 'CancelAll': return accessor(index, new CancelAll())! as CancelAll;
-    case 'ETFCreateRedeem': return accessor(index, new ETFCreateRedeem())! as ETFCreateRedeem;
-    case 'Ack': return accessor(index, new Ack())! as Ack;
-    case 'Trade': return accessor(index, new Trade())! as Trade;
-    case 'BookDelta': return accessor(index, new BookDelta())! as BookDelta;
-    case 'PositionUpdate': return accessor(index, new PositionUpdate())! as PositionUpdate;
-    case 'ConfigSnapshot': return accessor(index, new ConfigSnapshot())! as ConfigSnapshot;
-    case 'SessionEvent': return accessor(index, new SessionEvent())! as SessionEvent;
-    case 'ETFCreateRedeemResult': return accessor(index, new ETFCreateRedeemResult())! as ETFCreateRedeemResult;
-    default: return null;
-  }
+	type: Payload,
+	accessor: (
+		index: number,
+		obj:
+			| Ack
+			| Auth
+			| BookDelta
+			| CancelAll
+			| ConfigSnapshot
+			| ETFCreateRedeem
+			| ETFCreateRedeemResult
+			| Heartbeat
+			| OrderCancel
+			| OrderNew
+			| OrderReplace
+			| PositionUpdate
+			| SessionEvent
+			| Subscribe
+			| Trade
+			| Unsubscribe,
+	) =>
+		| Ack
+		| Auth
+		| BookDelta
+		| CancelAll
+		| ConfigSnapshot
+		| ETFCreateRedeem
+		| ETFCreateRedeemResult
+		| Heartbeat
+		| OrderCancel
+		| OrderNew
+		| OrderReplace
+		| PositionUpdate
+		| SessionEvent
+		| Subscribe
+		| Trade
+		| Unsubscribe
+		| null,
+	index: number,
+):
+	| Ack
+	| Auth
+	| BookDelta
+	| CancelAll
+	| ConfigSnapshot
+	| ETFCreateRedeem
+	| ETFCreateRedeemResult
+	| Heartbeat
+	| OrderCancel
+	| OrderNew
+	| OrderReplace
+	| PositionUpdate
+	| SessionEvent
+	| Subscribe
+	| Trade
+	| Unsubscribe
+	| null {
+	switch (Payload[type]) {
+		case "NONE":
+			return null;
+		case "Auth":
+			return accessor(index, new Auth())! as Auth;
+		case "Subscribe":
+			return accessor(index, new Subscribe())! as Subscribe;
+		case "Unsubscribe":
+			return accessor(index, new Unsubscribe())! as Unsubscribe;
+		case "Heartbeat":
+			return accessor(index, new Heartbeat())! as Heartbeat;
+		case "OrderNew":
+			return accessor(index, new OrderNew())! as OrderNew;
+		case "OrderReplace":
+			return accessor(index, new OrderReplace())! as OrderReplace;
+		case "OrderCancel":
+			return accessor(index, new OrderCancel())! as OrderCancel;
+		case "CancelAll":
+			return accessor(index, new CancelAll())! as CancelAll;
+		case "ETFCreateRedeem":
+			return accessor(index, new ETFCreateRedeem())! as ETFCreateRedeem;
+		case "Ack":
+			return accessor(index, new Ack())! as Ack;
+		case "Trade":
+			return accessor(index, new Trade())! as Trade;
+		case "BookDelta":
+			return accessor(index, new BookDelta())! as BookDelta;
+		case "PositionUpdate":
+			return accessor(index, new PositionUpdate())! as PositionUpdate;
+		case "ConfigSnapshot":
+			return accessor(index, new ConfigSnapshot())! as ConfigSnapshot;
+		case "SessionEvent":
+			return accessor(index, new SessionEvent())! as SessionEvent;
+		case "ETFCreateRedeemResult":
+			return accessor(
+				index,
+				new ETFCreateRedeemResult(),
+			)! as ETFCreateRedeemResult;
+		default:
+			return null;
+	}
 }

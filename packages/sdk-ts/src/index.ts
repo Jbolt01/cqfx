@@ -1,3 +1,3 @@
-// Placeholder re-exports; generated files live in ./gen
-export * from './gen';
-
+// Re-export generated FlatBuffers bindings
+export * from "./gen/ctc";
+export * from "./gen/envelope";

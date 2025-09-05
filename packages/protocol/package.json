@@ -1,11 +1,10 @@
 {
-  "name": "@ctc/protocol",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "files": ["fbs", "abi"],
-  "scripts": {
-    "gen": "pnpm -w gen:protocol"
-  }
+	"name": "@ctc/protocol",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"files": ["fbs", "abi"],
+	"scripts": {
+		"gen": "pnpm -w gen:protocol"
+	}
 }
-
