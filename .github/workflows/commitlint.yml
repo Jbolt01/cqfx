@@ -1,0 +1,24 @@
+name: commitlint
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, edited, reopened]
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install commitlint
+        run: npm i -g @commitlint/cli @commitlint/config-conventional
+      - name: Validate PR commits with commitlint
+        uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: commitlint.config.cjs
+          failOnWarnings: true
+

@@ -1,0 +1,52 @@
+name: protocol
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'packages/protocol/fbs/**'
+      - 'packages/tooling/scripts/**'
+      - '.github/workflows/protocol.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'packages/protocol/fbs/**'
+      - 'packages/tooling/scripts/**'
+      - '.github/workflows/protocol.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: protocol-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  codegen-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+      - name: Install flatc v25.2.10 (Linux binary)
+        env:
+          FLATC_VERSION: v25.2.10
+        run: |
+          mkdir -p "$RUNNER_TEMP/flatc/$FLATC_VERSION"
+          curl -L -o "$RUNNER_TEMP/flatc/$FLATC_VERSION/flatc.zip" "https://github.com/google/flatbuffers/releases/download/$FLATC_VERSION/Linux.flatc.binary.g%2B%2B-13.zip"
+          unzip -q "$RUNNER_TEMP/flatc/$FLATC_VERSION/flatc.zip" -d "$RUNNER_TEMP/flatc/$FLATC_VERSION"
+          echo "$RUNNER_TEMP/flatc/$FLATC_VERSION" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/flatc/$FLATC_VERSION/flatc" --version
+      - name: Schema compat check
+        run: pnpm protocol:check
+      - name: Generate protocol bindings
+        run: pnpm gen:protocol
+      - name: Ensure ABI snapshot committed
+        run: |
+          git diff --exit-code -- packages/protocol/abi/envelope.abi.json \
+            || (echo "ABI snapshot changed. Commit updated ABI (and regen SDKs locally)." && git status --porcelain && exit 1)

@@ -1,0 +1,97 @@
+namespace ctc;
+
+enum Side:ubyte { Buy=0, Sell=1 }
+enum OrderType:ubyte { Limit=0, Market=1 }
+enum TIF:ubyte { GFD=0, IOC=1, FOK=2 }
+enum StpMode:ubyte { None=0, CancelResting=1, CancelTaker=2, DecrementBoth=3 }
+enum RejectCode:ushort {
+  None=0, SessionClosed=1, BadSymbol=2, BadPrice=3, BadQty=4, PositionLimit=5,
+  NotionalLimit=6, RateLimited=7, DuplicateClOrdId=8, UnknownOrder=9,
+  ReplaceConstraints=10, CancelConstraints=11, RiskUnavailable=12, Unauthorized=13
+}
+enum ExecType:ubyte { Ack=0, PartialFill=1, Fill=2, CancelAck=3, ReplaceAck=4, Reject=5 }
+enum EventType:ubyte { Heartbeat=0, Session=1, Config=2 }
+enum InstrType:ubyte { Equity=0, ETF=1, Option=2 }
+enum DeltaKind:ubyte { PriceLevel=0, Snapshot=1 }
+
+table PriceLevelDelta { side:Side; pxTicks:int32; deltaLots:int64; }
+table BookDelta {
+  instrumentId:uint32; feedSeq:uint64; kind:DeltaKind; levels:[PriceLevelDelta];
+  tsNanos:uint64; bestBidTicks:int32; bestAskTicks:int32;
+}
+table Trade {
+  instrumentId:uint32; tradeId:uint64; pxTicks:int32; lots:int64; aggressor:Side;
+  tsNanos:uint64; matchId:uint64;
+}
+table PositionUpdate {
+  teamId:uint32; instrumentId:uint32; posLots:int64; openBuyLots:int64; openSellLots:int64;
+  realizedPnlTicks:int64; unrealizedPnlTicks:int64; headroomLongLots:int64; headroomShortLots:int64;
+  tsNanos:uint64;
+}
+
+table RiskLimit {
+  teamId:uint32; instrumentId:uint32;
+  posMinLots:int64; posMaxLots:int64; notionalMaxTicks:int64; maxOrdersPerSec:uint32;
+}
+
+table SessionEvent {
+  sessionId:uint32; roundNo:uint16; dayNo:uint16; state:string; tsNanos:uint64;
+}
+
+table Instrument {
+  id:uint32; symbol:string; type:InstrType; currency:string;
+  tickSizeNanos:uint32; tickSizeTicks:uint32; lotSizeLots:uint32; meta:uint64;
+}
+table EtfComponent {
+  etfInstrumentId:uint32; componentInstrumentId:uint32; weightNum:int32; weightDen:int32;
+}
+table OptionMeta {
+  instrumentId:uint32; underlyingInstrumentId:uint32; strikeTicks:int32; right:ubyte;
+  expiryEpochDays:uint32; multiplier:uint32;
+}
+table ConfigSnapshot {
+  version:uint64; instruments:[Instrument]; etf:[EtfComponent]; options:[OptionMeta];
+  riskLimits:[RiskLimit]; tsNanos:uint64;
+}
+
+table OrderNew {
+  clOrdId:uint64; instrumentId:uint32; side:Side; type:OrderType; tif:TIF;
+  pxTicks:int32; lots:int64; minFillLots:int64; postOnly:bool; stp:StpMode;
+  userId:uint32; teamId:uint32;
+}
+table OrderReplace {
+  origClOrdId:uint64; newClOrdId:uint64; instrumentId:uint32;
+  pxTicks:int32; lots:int64; minFillLots:int64; postOnly:bool; userId:uint32; teamId:uint32;
+}
+table OrderCancel { clOrdId:uint64; instrumentId:uint32; userId:uint32; teamId:uint32; }
+table CancelAll { scope:string; userId:uint32; teamId:uint32; }
+
+table Ack {
+  execType:ExecType; clOrdId:uint64; orderId:uint64; instrumentId:uint32;
+  filledLots:int64; leavesLots:int64; avgPxTicks:int32; rejectCode:RejectCode; text:string; tsNanos:uint64;
+}
+
+table ETFCreateRedeem {
+  requestId:uint64; etfInstrumentId:uint32; lots:int64; userId:uint32; teamId:uint32;
+}
+table EtfLeg { instrumentId:uint32; lots:int64; }
+table ETFCreateRedeemResult {
+  requestId:uint64; etfInstrumentId:uint32; lots:int64; legs:[EtfLeg];
+  success:bool; rejectCode:RejectCode; text:string; tsNanos:uint64;
+}
+
+table Subscribe { instruments:[uint32]; bookDepth:uint16; trades:bool; positions:bool; teamId:uint32; }
+table Unsubscribe { instruments:[uint32]; teamId:uint32; }
+table Heartbeat { nonce:uint64; }
+table Auth { jwt:string; clientName:string; protocol:uint32; }
+
+union Payload {
+  Auth, Subscribe, Unsubscribe, Heartbeat,
+  OrderNew, OrderReplace, OrderCancel, CancelAll, ETFCreateRedeem,
+  Ack, Trade, BookDelta, PositionUpdate, ConfigSnapshot, SessionEvent, ETFCreateRedeemResult
+}
+
+table Message { schemaVersion:uint16; payload:Payload; }
+root_type Message;
+file_identifier "CTC1";
+
